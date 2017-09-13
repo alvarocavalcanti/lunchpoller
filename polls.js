@@ -2,8 +2,13 @@ var restaurants = require("./restaurants");
 
 var polls = [];
 
-var getWeek = function() {
-  return 0;
+// Function from: https://stackoverflow.com/a/6117889/1456509
+Date.prototype.getWeekNumber = function(){
+  var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+  var dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
 };
 
 var getOptions = function() {
@@ -15,9 +20,11 @@ var getOptions = function() {
 };
 
 exports.createPoll = function() {
+  today = new Date();
+  timestamp = +today;
   poll = {
-    id: Date.now(),
-    week: getWeek(),
+    id: timestamp,
+    week: today.getWeekNumber(),
     options: getOptions(),
     voters: [],
     closed: false
