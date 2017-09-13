@@ -27,6 +27,19 @@ exports.creates_a_poll = function(done) {
     });
 };
 
+exports.creates_a_poll_with_valid_options = function(done) {
+  supertest(app)
+    .post("/polls")
+    .expect(201)
+    .end(function(err, response) {
+      assert.ok(!err);
+      options = response.body.options;
+      assert.deepEqual(options[0], { name: "Chinese Dragon", votes: 0 });
+      assert.deepEqual(options[1], { name: "Joe's Burguer", votes: 0 });
+      done();
+    });
+};
+
 exports.casts_a_vote = function(done) {
   supertest(app)
     .post("/polls/" + poll.id + "/vote")

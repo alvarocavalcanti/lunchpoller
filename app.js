@@ -18,11 +18,11 @@ var getWeek = function() {
 };
 
 var getOptions = function() {
-    result = [];
-    restaurants.forEach(function (restaurant) {
-        result.push({restaurant: 0});
-    });
-    return result;
+  result = [];
+  restaurants.forEach(function(restaurant) {
+    result.push({ name: restaurant, votes: 0 });
+  });
+  return result;
 };
 
 var createPoll = function() {
@@ -49,7 +49,7 @@ app.post("/polls", function(req, res) {
 });
 
 app.post("/polls/:pollId/vote", function(req, res) {
-  res.status(201).send(req.name + ' has cast a vote for ' + req.restaurant);
+  res.status(201).send(req.name + " has cast a vote for " + req.restaurant);
 });
 
 var server = app.listen(port, function() {
