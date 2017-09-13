@@ -71,3 +71,26 @@ exports.closes_a_poll = function(done) {
     done();
   });
 };
+
+exports.retrieves_a_poll = function(done) {
+  polls.deletePolls();
+
+  poll = polls.createPoll();
+  polls.castVote(poll.id, "John", "Chinese Dragon");
+  polls.castVote(poll.id, "Jane", "Chinese Dragon");
+  polls.castVote(poll.id, "Mary", "Joe's Burguer");
+  polls.castVote(poll.id, "Jack", "Vegan Castle");
+
+  supertest(app)
+  .get("/polls/" + poll.id)
+  .expect(200)
+  .end(function(err, response) {
+    if (err) return done(err);
+    openPoll = response.body;
+
+    assert.ok(!openPoll.closed, "Poll closed");
+    assert.equal(openPoll.chosen, "", "Open Poll already has a chosen restaurant");
+    assert.equal(openPoll.voters.length, 4, "Wrong number of voters");
+    done();
+  });
+};

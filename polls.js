@@ -116,6 +116,6 @@ exports.getPoll = function(pollId) {
     if (poll.id == pollId) {
       return poll;
     }
-    return null;
   }
+  return null;
 };
