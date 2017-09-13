@@ -25,4 +25,23 @@ describe('The Polls module', function() {
     assert.equal(currentPolls.length, 1, "There is more than one Poll.")
     assert.equal(firstPoll, secondPoll, "The two Polls are different.")
   });
+
+  it('casts a vote to a poll', () => {
+    poll = polls.createPoll();
+    polls.castVote(poll.id, "John", "Chinese Dragon");
+    poll = polls.getPoll(poll.id);
+
+    assert.equal(poll.voters.length, 1, "Voter count different than 1");
+    assert.equal(poll.options[0].votes, 1, "Vote not computed for Chinese Dragon");
+  });
+
+  it('does not compute duplicated vote', () => {
+    poll = polls.createPoll();
+    polls.castVote(poll.id, "John", "Chinese Dragon");
+    polls.castVote(poll.id, "John", "Chinese Dragon");
+    poll = polls.getPoll(poll.id);
+
+    assert.equal(poll.voters.length, 1, "Voter count different than 1");
+    assert.equal(poll.options[0].votes, 1, "Vote not computed for Chinese Dragon");
+  });
 });

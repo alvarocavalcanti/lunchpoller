@@ -45,6 +45,21 @@ exports.createPoll = function() {
 };
 
 exports.castVote = function(pollId, voterName, restaurant) {
+  for (var i = 0; i < polls.length; i++) {
+    var poll = polls[i];
+    if (poll.id == pollId) {
+      if (poll.voters.includes(voterName)) {
+        return;
+      }
+
+      poll.options.forEach(function(option) {
+        if (option.name == restaurant) {
+          option.votes++;
+          poll.voters.push(voterName);
+        }
+      }, this);
+    }
+  }
 };
 
 exports.closePoll = function(pollId) {
@@ -56,4 +71,14 @@ exports.getPolls = function() {
 
 exports.deletePolls = function() {
   polls = [];
+};
+
+exports.getPoll = function(pollId) {
+  for (var i = 0; i < polls.length; i++) {
+    var element = polls[i];
+    if (element.id == pollId) {
+      return element;
+    }
+    return null;
+  }
 };
