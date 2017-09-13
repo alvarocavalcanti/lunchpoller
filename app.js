@@ -3,20 +3,49 @@ const app = express();
 const port = 3000;
 
 var restaurants = [
-        "China Dragon",
-        "Joe's Burguer",
-        "Vegan Castle",
-        "Bella Pasta",
-        "Brazillian Steak",
-        "Outback Flavors"
-    ];
+  "China Dragon",
+  "Joe's Burguer",
+  "Vegan Castle",
+  "Bella Pasta",
+  "Brazillian Steak",
+  "Outback Flavors"
+];
 
+var polls = [];
+
+var getWeek = function() {
+  return 0;
+};
+
+var getOptions = function() {
+    result = [];
+    restaurants.forEach(function (restaurant) {
+        result.push({restaurant: 0});
+    });
+    return result;
+};
+
+var createPoll = function() {
+  return {
+    id: Date.now(),
+    week: getWeek(),
+    options: getOptions()
+  };
+};
+
+// Routing
 app.get("/", function(req, res) {
   res.send("Nothing to see here.");
 });
 
 app.get("/restaurants", function(req, res) {
   res.send(restaurants);
+});
+
+app.post("/polls", function(req, res) {
+  newPoll = createPoll();
+  polls.push(newPoll);
+  res.status(201).send(newPoll);
 });
 
 var server = app.listen(port, function() {
