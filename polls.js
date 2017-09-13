@@ -11,12 +11,34 @@ Date.prototype.getWeekNumber = function(){
   return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
 };
 
-var getOptions = function() {
+var getChosenForThisWeek = function(week) {
+  var result = [];
+  for (var i = 0; i < polls.length; i++) {
+    var poll = polls[i];
+    if (poll.closed && poll.week == week) {
+      result.push(poll.chosen);
+    }
+  }
+  return result;
+};
+
+var removeChosenOfTheCurrentWeek = function(options, week) {
+  chosenForThisWeek = getChosenForThisWeek(week);
+  newOptions = [];
+  options.forEach(function(option) {
+    if (!chosenForThisWeek.includes(option.name)) {
+      newOptions.push(option);
+    }
+  }, this);
+  return newOptions;
+};
+
+var getOptions = function(week) {
   result = [];
   restaurants.getRestaurants().forEach(function(restaurant) {
     result.push({ name: restaurant, votes: 0 });
   });
-  return result;
+  return removeChosenOfTheCurrentWeek(result, week);
 };
 
 exports.createPoll = function() {
@@ -26,7 +48,7 @@ exports.createPoll = function() {
   for (i = 0; i < polls.length; i++) {
     poll = polls[i];
     pollDate = new Date(poll.id);
-    if (pollDate.toDateString() == today.toDateString()) {
+    if (pollDate.toDateString() == today.toDateString() && !poll.closed) {
       return poll;
     }
   }
@@ -34,7 +56,7 @@ exports.createPoll = function() {
   poll = {
     id: timestamp,
     week: today.getWeekNumber(),
-    options: getOptions(),
+    options: getOptions(today.getWeekNumber()),
     voters: [],
     closed: false,
     chosen: ""

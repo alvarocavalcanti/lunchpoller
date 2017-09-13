@@ -57,4 +57,18 @@ describe('The Polls module', function() {
     assert.equal(poll.closed, true, "Poll still open");
     assert.equal(poll.chosen, "Chinese Dragon", "Wrong restaurant chosen");
   });
+
+  it('does not includes a restaurant that was chosen this week as an option for a new Poll', () => {
+    firstPoll = polls.createPoll();
+    polls.castVote(firstPoll.id, "John", "Chinese Dragon");
+    polls.castVote(firstPoll.id, "Jane", "Chinese Dragon");
+    polls.castVote(firstPoll.id, "Mary", "Joes's Burguer");
+    polls.castVote(firstPoll.id, "Jack", "Vegan Castle");
+    polls.closePoll(firstPoll.id);
+    firstPoll = polls.getPoll(firstPoll.id);
+
+    secondPoll = polls.createPoll();
+
+    assert.ok(!secondPoll.options.includes({restaurant: "Chinese Dragon", votes: 0}), "Already chosen restaurant is available");
+  });
 });
