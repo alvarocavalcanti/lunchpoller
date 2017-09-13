@@ -1,0 +1,26 @@
+{
+  "name": "lunchpoller",
+  "version": "1.0.0",
+  "description": "Create Lunch Polls",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alvarocavalcanti/lunchpoller.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express"
+  ],
+  "author": "Alvaro Cavalcanti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alvarocavalcanti/lunchpoller/issues"
+  },
+  "homepage": "https://github.com/alvarocavalcanti/lunchpoller#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
