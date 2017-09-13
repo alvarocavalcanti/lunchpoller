@@ -13,7 +13,7 @@ app.get("/restaurants", function(req, res) {
 });
 
 app.get("/polls", function(req, res) {
-  res.status(200).send(polls);
+  res.status(200).send(polls).getPolls();
 });
 
 app.post("/polls", function(req, res) {

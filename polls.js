@@ -22,12 +22,22 @@ var getOptions = function() {
 exports.createPoll = function() {
   today = new Date();
   timestamp = +today;
+
+  for (i = 0; i < polls.length; i++) {
+    poll = polls[i];
+    pollDate = new Date(poll.id);
+    if (pollDate.toDateString() == today.toDateString()) {
+      return poll;
+    }
+  }
+
   poll = {
     id: timestamp,
     week: today.getWeekNumber(),
     options: getOptions(),
     voters: [],
-    closed: false
+    closed: false,
+    chosen: ""
   };
   polls.push(poll);
 
@@ -35,4 +45,15 @@ exports.createPoll = function() {
 };
 
 exports.castVote = function(pollId, voterName, restaurant) {
+};
+
+exports.closePoll = function(pollId) {
+};
+
+exports.getPolls = function() {
+  return polls;
+};
+
+exports.deletePolls = function() {
+  polls = [];
 };
