@@ -63,6 +63,21 @@ exports.castVote = function(pollId, voterName, restaurant) {
 };
 
 exports.closePoll = function(pollId) {
+  for (var i = 0; i < polls.length; i++) {
+    var poll = polls[i];
+    if (poll.id == pollId) {
+      chosen = null;
+      most_votes = 0;
+      poll.options.forEach(function(option) {
+        if (option.votes > most_votes) {
+          most_votes = option.votes;
+          chosen = option.name;
+        }
+      }, this);
+      poll.chosen = chosen;
+      poll.closed = true;
+    }
+  }
 };
 
 exports.getPolls = function() {
@@ -75,9 +90,9 @@ exports.deletePolls = function() {
 
 exports.getPoll = function(pollId) {
   for (var i = 0; i < polls.length; i++) {
-    var element = polls[i];
-    if (element.id == pollId) {
-      return element;
+    var poll = polls[i];
+    if (poll.id == pollId) {
+      return poll;
     }
     return null;
   }

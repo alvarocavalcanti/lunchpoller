@@ -44,4 +44,17 @@ describe('The Polls module', function() {
     assert.equal(poll.voters.length, 1, "Voter count different than 1");
     assert.equal(poll.options[0].votes, 1, "Vote not computed for Chinese Dragon");
   });
+
+  it('closes a poll and saves the chosen one', () => {
+    poll = polls.createPoll();
+    polls.castVote(poll.id, "John", "Chinese Dragon");
+    polls.castVote(poll.id, "Jane", "Chinese Dragon");
+    polls.castVote(poll.id, "Mary", "Joes's Burguer");
+    polls.castVote(poll.id, "Jack", "Vegan Castle");
+    polls.closePoll(poll.id);
+    poll = polls.getPoll(poll.id);
+
+    assert.equal(poll.closed, true, "Poll still open");
+    assert.equal(poll.chosen, "Chinese Dragon", "Wrong restaurant chosen");
+  });
 });
