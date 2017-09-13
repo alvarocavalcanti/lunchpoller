@@ -42,8 +42,7 @@ exports.creates_a_poll_with_valid_options = function(done) {
 
 exports.casts_a_vote = function(done) {
   supertest(app)
-    .post("/polls/" + poll.id + "/vote")
-    .send({ name: "John", restaurant: "Chinese Dragon" })
+    .post("/polls/" + poll.id + "/votes/John/Chinese Dragon")
     .expect(201)
     .end(function(err, response) {
       if (err) return done(err);
