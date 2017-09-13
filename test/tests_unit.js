@@ -49,7 +49,7 @@ describe('The Polls module', function() {
     poll = polls.createPoll();
     polls.castVote(poll.id, "John", "Chinese Dragon");
     polls.castVote(poll.id, "Jane", "Chinese Dragon");
-    polls.castVote(poll.id, "Mary", "Joes's Burguer");
+    polls.castVote(poll.id, "Mary", "Joe's Burguer");
     polls.castVote(poll.id, "Jack", "Vegan Castle");
     polls.closePoll(poll.id);
     poll = polls.getPoll(poll.id);
@@ -62,7 +62,7 @@ describe('The Polls module', function() {
     firstPoll = polls.createPoll();
     polls.castVote(firstPoll.id, "John", "Chinese Dragon");
     polls.castVote(firstPoll.id, "Jane", "Chinese Dragon");
-    polls.castVote(firstPoll.id, "Mary", "Joes's Burguer");
+    polls.castVote(firstPoll.id, "Mary", "Joe's Burguer");
     polls.castVote(firstPoll.id, "Jack", "Vegan Castle");
     polls.closePoll(firstPoll.id);
     firstPoll = polls.getPoll(firstPoll.id);

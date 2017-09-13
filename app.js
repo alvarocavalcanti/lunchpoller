@@ -21,6 +21,16 @@ app.post("/polls", function(req, res) {
   res.status(201).send(newPoll);
 });
 
+app.post("/polls/:pollId/close", function(req, res) {
+  pollId = req.params.pollId
+  polls.closePoll(pollId);
+  poll = polls.getPoll(pollId);
+
+  res
+    .status(200)
+    .send(poll);
+});
+
 app.post("/polls/:pollId/votes/:name/:restaurant", function(req, res) {
   pollId = req.params.pollId
   voterName = req.params.name;
