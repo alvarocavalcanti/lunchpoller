@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 
 var restaurants = [
-  "China Dragon",
+  "Chinese Dragon",
   "Joe's Burguer",
   "Vegan Castle",
   "Bella Pasta",
@@ -46,6 +46,10 @@ app.post("/polls", function(req, res) {
   newPoll = createPoll();
   polls.push(newPoll);
   res.status(201).send(newPoll);
+});
+
+app.post("/polls/:pollId/vote", function(req, res) {
+  res.status(201).send(req.name + ' has cast a vote for ' + req.restaurant);
 });
 
 var server = app.listen(port, function() {

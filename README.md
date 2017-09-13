@@ -12,7 +12,7 @@ A Simple Lunch Poller
 
 The restaurant data will be pre-loaded as follows:
 
-1. China Dragon
+1. Chinese Dragon
 1. Joe's Burguer
 1. Vegan Castle
 1. Bella Pasta
