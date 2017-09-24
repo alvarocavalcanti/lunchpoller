@@ -2,7 +2,14 @@ const express = require("express");
 const polls = require("./polls");
 const restaurants = require("./restaurants");
 const app = express();
+const morgan = require('morgan');
 const port = 3000;
+
+app.use(morgan('combined'));
+
+app.all(/^\/api/, function(req, res) { 
+  res.redirect(req.originalUrl.replace('/api', ''));
+});
 
 app.get("/", function(req, res) {
   res.send("Nothing to see here.");
@@ -13,7 +20,7 @@ app.get("/restaurants", function(req, res) {
 });
 
 app.get("/polls", function(req, res) {
-  res.status(200).send(polls).getPolls();
+  res.status(200).send(polls.getPolls());
 });
 
 app.post("/polls", function(req, res) {
