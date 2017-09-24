@@ -5,7 +5,7 @@ var supertest = require("supertest"),
 
 exports.loads_restaurant_list = function(done) {
   supertest(app)
-    .get("/restaurants")
+    .get("/api/restaurants")
     .expect(200)
     .end(function(err, response) {
       assert.ok(!err);
@@ -16,7 +16,7 @@ exports.loads_restaurant_list = function(done) {
 
 exports.creates_a_poll = function(done) {
   supertest(app)
-    .post("/polls")
+    .post("/api/polls")
     .expect(201)
     .end(function(err, response) {
       assert.ok(!err);
@@ -30,7 +30,7 @@ exports.creates_a_poll = function(done) {
 
 exports.creates_a_poll_with_valid_options = function(done) {
   supertest(app)
-    .post("/polls")
+    .post("/api/polls")
     .expect(201)
     .end(function(err, response) {
       assert.ok(!err);
@@ -43,7 +43,7 @@ exports.creates_a_poll_with_valid_options = function(done) {
 
 exports.casts_a_vote = function(done) {
   supertest(app)
-    .post("/polls/" + poll.id + "/votes/John/Chinese Dragon")
+    .post("/api/polls/" + poll.id + "/votes/John/Chinese Dragon")
     .expect(201)
     .end(function(err, response) {
       if (err) return done(err);
@@ -60,7 +60,7 @@ exports.closes_a_poll = function(done) {
   polls.castVote(poll.id, "Jack", "Vegan Castle");
 
   supertest(app)
-  .post("/polls/" + poll.id + "/close")
+  .post("/api/polls/" + poll.id + "/close")
   .expect(200)
   .end(function(err, response) {
     if (err) return done(err);
@@ -82,7 +82,7 @@ exports.retrieves_a_poll = function(done) {
   polls.castVote(poll.id, "Jack", "Vegan Castle");
 
   supertest(app)
-  .get("/polls/" + poll.id)
+  .get("/api/polls/" + poll.id)
   .expect(200)
   .end(function(err, response) {
     if (err) return done(err);

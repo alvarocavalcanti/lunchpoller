@@ -7,35 +7,31 @@ const port = 3000;
 
 app.use(morgan('combined'));
 
-app.all(/^\/api/, function(req, res) { 
-  res.redirect(req.originalUrl.replace('/api', ''));
-});
-
 app.get("/", function(req, res) {
   res.send("Nothing to see here.");
 });
 
-app.get("/restaurants", function(req, res) {
+app.get("/api/restaurants", function(req, res) {
   res.send(restaurants.getRestaurants());
 });
 
-app.get("/polls", function(req, res) {
+app.get("/api/polls", function(req, res) {
   res.status(200).send(polls.getPolls());
 });
 
-app.post("/polls", function(req, res) {
+app.post("/api/polls", function(req, res) {
   newPoll = polls.createPoll();
   res.status(201).send(newPoll);
 });
 
-app.get("/polls/:pollId", function(req, res) {
+app.get("/api/polls/:pollId", function(req, res) {
   pollId = req.params.pollId
   res
     .status(200)
     .send(polls.getPoll(pollId));
 });
 
-app.post("/polls/:pollId/close", function(req, res) {
+app.post("/api/polls/:pollId/close", function(req, res) {
   pollId = req.params.pollId
   polls.closePoll(pollId);
   poll = polls.getPoll(pollId);
@@ -45,7 +41,7 @@ app.post("/polls/:pollId/close", function(req, res) {
     .send(poll);
 });
 
-app.post("/polls/:pollId/votes/:name/:restaurant", function(req, res) {
+app.post("/api/polls/:pollId/votes/:name/:restaurant", function(req, res) {
   pollId = req.params.pollId
   voterName = req.params.name;
   restaurant = req.params.restaurant;
