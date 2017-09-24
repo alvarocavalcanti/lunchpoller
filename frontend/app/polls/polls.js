@@ -28,9 +28,19 @@ angular.module('myApp.polls', ['ngRoute', 'ngResource'])
     getPolls();
   };
 
-  vm.castVote = function (pollId, optionName) {
-    console.log("castVote");
-    getPolls();
+  vm.castVote = function (pollId, restaurant) {
+    var name = prompt(`You\'re about to vote for ${restaurant}. What\'s your name?`);
+    if (name) {
+      $resource('/api/polls/:pollId/votes/:name/:restaurant').save({pollId, name, restaurant}, {}).$promise.then(
+        (poll) => {
+          console.log(poll)
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      getPolls();
+    }
   };
 
   vm.closePoll = function (pollId) {

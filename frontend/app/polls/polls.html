@@ -1,4 +1,4 @@
-<div>
+<div style="margin: 1em">
   <button ng-click="vm.createPoll()">Create Poll</button>
 </div>
 
@@ -6,13 +6,13 @@
   <div><strong>Polls</strong></div>
   <div ng-repeat="poll in vm.polls">
     <ul>
-      <div>Poll {{ poll.id }}</div>
+      <div><u>Poll {{ poll.id }}</u></div>
       <li>Date: {{ poll.id | date}}</li>
       <li>Status {{ poll.closed ? "Closed" : "Open" }}</li>
       <li ng-if="poll.closed">Chosen Option: {{ poll.chosen }}</li>
       <li ng-if="!poll.closed">Options:
          <ul ng-repeat="option in poll.options">
-            <li>{{ option.name }} <button ng-click="vm.castVote(poll.id, option.name)">Vote</button></li>
+            <li>{{ option.votes }} - {{ option.name }} <button ng-click="vm.castVote(poll.id, option.name)">Vote</button></li>
          </ul>
       </li>
       <li ng-if="!poll.closed"><button ng-click="vm.closePoll(poll.id)">Close Poll</button></li>
