@@ -14,7 +14,9 @@
     "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.8",
     "karma-junit-reporter": "^0.4.1",
-    "protractor": "^4.0.9"
+    "karma-requirejs": "^1.1.0",
+    "protractor": "^4.0.9",
+    "requirejs": "^2.3.5"
   },
   "scripts": {
     "postinstall": "bower install",
